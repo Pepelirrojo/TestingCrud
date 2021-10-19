@@ -1,10 +1,16 @@
 package controller;
 
-import model.DBManager;
+import model.Model;
+import view.View;
 
 public class Main {
 	public static void main(String[] args) {
-		DBManager myDbManager = new DBManager();
-		myDbManager.myStudents();
+		Model myModel = new Model();
+		Controller myController = new Controller();
+		View myView = new View();
+		myController.setMyModel(myModel);
+		myController.setMyView(myView);
+		myView.setMyController(myController);
+		myView.Initialize();
 	}
 }
