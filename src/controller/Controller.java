@@ -33,5 +33,9 @@ public class Controller {
 	public void InsertStudent(Student myStudent) {
 		myModel.insertStudent(myStudent);
 	}
+	
+	public void updateStudent(Student myStudent) {
+		myModel.updateStudent(myStudent);
+	}
 
 }
