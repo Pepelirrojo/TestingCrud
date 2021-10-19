@@ -11,14 +11,14 @@ import org.json.simple.JSONValue;
 public class Model {
 	ApiRequest myApiRequest;
 	String urlPath;
-	
-	public Model(){
+
+	public Model() {
 		myApiRequest = new ApiRequest();
 		urlPath = "http://localhost/TestingCrud/";
 	}
-	
-	public HashMap<Integer, Student> myStudents(){
-		HashMap<Integer, Student> myStudents = new HashMap<Integer, Student >();
+
+	public HashMap<Integer, Student> myStudents() {
+		HashMap<Integer, Student> myStudents = new HashMap<Integer, Student>();
 		String response;
 		try {
 			response = myApiRequest.getRequest(urlPath + "getAllStudents.php");
@@ -32,7 +32,7 @@ public class Model {
 					String name = (String) studentRow.get("name");
 					String surname = (String) studentRow.get("surname");
 					double averageGrade = Double.parseDouble((String) studentRow.get("averageGrade"));
-					String sex =  (String) studentRow.get("sex");
+					String sex = (String) studentRow.get("sex");
 					Student student = new Student(id, name, surname, averageGrade, sex);
 					myStudents.put(student.getId(), student);
 				}
@@ -43,5 +43,20 @@ public class Model {
 		}
 		return myStudents;
 	}
-	
+
+	public boolean insertStudent(Student myStudent) {
+		JSONObject jsonStudent = new JSONObject();
+		jsonStudent.put("name", myStudent.getName());
+		jsonStudent.put("surname", myStudent.getSurname());
+		jsonStudent.put("averageGrade", myStudent.getAverageGrade());
+		jsonStudent.put("sex", myStudent.getSex());
+		try {
+			String response = myApiRequest.postRequest(urlPath + "insertStudent.php", jsonStudent.toJSONString());
+			System.out.println(response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

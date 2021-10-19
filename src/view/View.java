@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 
 import controller.Controller;
+import model.Student;
 
 public class View {
 	Controller myController;
@@ -14,10 +15,10 @@ public class View {
 	public void setMyController(Controller myController) {
 		this.myController = myController;
 	}
-	
+
 	public void Initialize() {
 		System.out.println("Welcome to Griso School");
-		System.out.println("Select one option:\n1.Show Students");
+		System.out.println("Select one option:\n1.Show Students\n2.Insert Student");
 		Scanner sc = new Scanner(System.in);
 		while (sc.hasNext()) {
 			String option = (String) sc.next();
@@ -26,10 +27,23 @@ public class View {
 				myController.ShowStudents();
 				break;
 			}
-			
+			case "2": {
+				System.out.print("Name: ");
+				String name = sc.next();
+				System.out.print("Surname: ");
+				String surname = sc.next();
+				System.out.print("Average Grade: ");
+				double averageGrade = Double.parseDouble(sc.next());
+				System.out.print("Gender: ");
+				String gender = sc.next();
+				Student myStudent = new Student(0, name, surname, averageGrade, gender);
+				myController.InsertStudent(myStudent);
+				break;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + option);
 			}
+			System.out.println("Select one option:\n1.Show Students\n2.Insert Student");
 		}
 	}
 }

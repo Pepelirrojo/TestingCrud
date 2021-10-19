@@ -9,7 +9,6 @@ public class Student {
 	String sex;
 	
 	public Student(int id, String name, String surname, double averageGrade, String sex) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -49,7 +48,7 @@ public class Student {
 		this.averageGrade = averageGrade;
 	}
 
-	public String isSex() {
+	public String getSex() {
 		return sex;
 	}
 

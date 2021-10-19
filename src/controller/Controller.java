@@ -29,5 +29,9 @@ public class Controller {
 			System.out.println(myStudent);
 		}
 	}
+	
+	public void InsertStudent(Student myStudent) {
+		myModel.insertStudent(myStudent);
+	}
 
 }
