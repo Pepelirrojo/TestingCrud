@@ -2,7 +2,6 @@ package model;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,11 +27,13 @@ public class Model {
 				JSONArray studentsJsonArray = (JSONArray) responseJson.get("students");
 				for (int i = 0; i < studentsJsonArray.size(); i++) {
 					JSONObject studentRow = (JSONObject) studentsJsonArray.get(i);
+					
 					int id = Integer.parseInt((String) studentRow.get("id"));
 					String name = (String) studentRow.get("name");
 					String surname = (String) studentRow.get("surname");
 					double averageGrade = Double.parseDouble((String) studentRow.get("averageGrade"));
 					String sex = (String) studentRow.get("sex");
+					
 					Student student = new Student(id, name, surname, averageGrade, sex);
 					myStudents.put(student.getId(), student);
 				}
@@ -45,6 +46,7 @@ public class Model {
 	}
 
 	public boolean insertStudent(Student myStudent) {
+		boolean success = false;
 		JSONObject jsonStudent = new JSONObject();
 		jsonStudent.put("name", myStudent.getName());
 		jsonStudent.put("surname", myStudent.getSurname());
@@ -52,16 +54,17 @@ public class Model {
 		jsonStudent.put("sex", myStudent.getSex());
 		try {
 			String response = myApiRequest.postRequest(urlPath + "insertStudent.php", jsonStudent.toJSONString());
-			System.out.println(response);
+			JSONObject responseJson = (JSONObject) JSONValue.parse(response);
+			success = (Boolean) responseJson.get("status");
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("ERROR, student's data was not inserted");
 		}
-		return false;
+		return success;
 	}
 
 	public boolean updateStudent(Student myStudent) {
-
+		boolean success = false;
 		JSONObject jsonStudent = new JSONObject();
 		jsonStudent.put("id", myStudent.getId());
 		jsonStudent.put("name", myStudent.getName());
@@ -71,34 +74,26 @@ public class Model {
 
 		try {
 			String response = myApiRequest.postRequest(urlPath + "updateStudent.php", jsonStudent.toJSONString());
-			;
-			System.out.println(response);
+			JSONObject responseJson = (JSONObject) JSONValue.parse(response);
+			success = (Boolean) responseJson.get("status");
 		} catch (Exception e) {
-
 			System.out.println("ERROR, student's data was not changed");
-
 		}
-
-		return false;
+		return success;
 
 	}
 
 	public boolean deleteStudent(Student myStudent) {
-
+		boolean success = false;
 		JSONObject jsonStudent = new JSONObject();
 		jsonStudent.put("id", myStudent.getId());
-
 		try {
 			String response = myApiRequest.postRequest(urlPath + "deleteStudent.php", jsonStudent.toJSONString());
-			;
-			System.out.println(response);
+			JSONObject responseJson = (JSONObject) JSONValue.parse(response);
+			success = (Boolean) responseJson.get("status");
 		} catch (Exception e) {
-
 			System.out.println("ERROR, student's data was not changed");
-
 		}
-
-		return false;
-
+		return success;
 	}
 }

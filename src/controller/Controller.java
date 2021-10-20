@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Collection;
+
 import model.Model;
 import model.Student;
 import view.View;
@@ -24,23 +26,20 @@ public class Controller {
 		this.myView = myView;
 	}
 
-	public void ShowStudents() {
-		for (Student myStudent : myModel.myStudents().values()) {
-			System.out.println(myStudent);
-		}
+	public Collection<Student> ShowStudents() {
+		return myModel.myStudents().values();
 	}
-	
-	public void InsertStudent(Student myStudent) {
-		myModel.insertStudent(myStudent);
+
+	public String InsertStudent(Student myStudent) {
+		return myModel.insertStudent(myStudent) ? "Inserted Student: " + myStudent.getName() : "Not Inserted";
 	}
-	
-	public void updateStudent(Student myStudent) {
-		myModel.updateStudent(myStudent);
+
+	public String updateStudent(Student myStudent) {
+		return myModel.updateStudent(myStudent) ? "Update Student: " + myStudent.toString() : "Not Updated";
 	}
-	
-	public void deleteStudent(Student myStudent) {
-		myModel.deleteStudent(myStudent);
-		
+
+	public String deleteStudent(Student myStudent) {
+		return myModel.deleteStudent(myStudent) ? "Deleted Student: " + myStudent.toString() : "Not Deleted";
 	}
 
 }
