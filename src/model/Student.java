@@ -16,6 +16,10 @@ public class Student {
 		this.sex = sex;
 	}
 
+	public Student(int id) {
+		this.id = id;
+	}
+
 	public int getId() {
 		return id;
 	}

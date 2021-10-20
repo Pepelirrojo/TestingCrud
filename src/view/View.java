@@ -18,7 +18,7 @@ public class View {
 
 	public void Initialize() {
 		System.out.println("Welcome to Griso School");
-		System.out.println("Select one option:\n1.Show Students\n2.Insert Student\n3.Update Student");
+		System.out.println("Select one option:\n1.Show Students\n2.Insert Student\n3.Update Student\n4. Delete Student");
 		Scanner sc = new Scanner(System.in);
 		while (sc.hasNext()) {
 			String option = (String) sc.next();
@@ -57,10 +57,19 @@ public class View {
 				myController.updateStudent(myStudent);
 				break;
 			}
+			case "4":{
+				System.out.print("Insert the ID of the student you wish to delete:\n");
+				myController.ShowStudents();
+				System.out.print("ID: ");
+				int id = sc.nextInt();
+				Student myStudent = new Student(id);
+				myController.deleteStudent(myStudent);
+				break;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + option);
 			}
-			System.out.println("Select one option:\n1.Show Students\n2.Insert Student");
+			System.out.println("Select one option:\n1.Show Students\n2.Insert Student\n3.Update Student\n4. Delete Student");
 		}
 	}
 }

@@ -59,24 +59,43 @@ public class Model {
 		}
 		return false;
 	}
-	
+
 	public boolean updateStudent(Student myStudent) {
 
-	
 		JSONObject jsonStudent = new JSONObject();
 		jsonStudent.put("id", myStudent.getId());
 		jsonStudent.put("name", myStudent.getName());
 		jsonStudent.put("surname", myStudent.getSurname());
 		jsonStudent.put("averageGrade", myStudent.getAverageGrade());
 		jsonStudent.put("sex", myStudent.getSex());
-		
+
 		try {
-			String response = myApiRequest.postRequest(urlPath + "updateStudent.php", jsonStudent.toJSONString());;
+			String response = myApiRequest.postRequest(urlPath + "updateStudent.php", jsonStudent.toJSONString());
+			;
 			System.out.println(response);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			System.out.println("ERROR, student's data was not changed");
-			
+
+		}
+
+		return false;
+
+	}
+
+	public boolean deleteStudent(Student myStudent) {
+
+		JSONObject jsonStudent = new JSONObject();
+		jsonStudent.put("id", myStudent.getId());
+
+		try {
+			String response = myApiRequest.postRequest(urlPath + "deleteStudent.php", jsonStudent.toJSONString());
+			;
+			System.out.println(response);
+		} catch (Exception e) {
+
+			System.out.println("ERROR, student's data was not changed");
+
 		}
 
 		return false;

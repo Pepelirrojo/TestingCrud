@@ -37,5 +37,10 @@ public class Controller {
 	public void updateStudent(Student myStudent) {
 		myModel.updateStudent(myStudent);
 	}
+	
+	public void deleteStudent(Student myStudent) {
+		myModel.deleteStudent(myStudent);
+		
+	}
 
 }
